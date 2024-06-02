@@ -2,7 +2,6 @@ import * as React from 'react';
 import { View } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import { EMPLOYEES } from '@/constants/employee';
-import { ThemedText } from './ThemedText';
 
 export const PageEmployee = () => {
   const [checked, setChecked] = React.useState('');
