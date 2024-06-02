@@ -21,7 +21,7 @@ import '../../assets/images/logo.png';
 
 import { Collapsible } from '@/components/Collapsible';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { EmployeeList } from '@/components/Employee';
+import { EmployeeList } from '@/components/TableEmployee';
 
 export default function ConfigScreen() {
   const router = useRouter();

@@ -6,9 +6,10 @@ import { WrapperAgendamento } from '@/components/WrapperAgendamento';
 import { Collapsible } from '@/components/Collapsible';
 import { ExternalLink } from '@/components/ExternalLink';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Servicos } from '@/components/Servicos';
 import { useEffect, useState } from 'react';
 import { storage } from '../util/storage';
+import { MyModal } from '@/components/MyModal';
+import { PageEmployee } from '@/components/PageEmployee';
 
 // {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
 export default function HomeScreen() {
@@ -46,24 +47,27 @@ export default function HomeScreen() {
       >
         <ThemedView style={styles.titleContainer}>
           <ThemedText type="title">Beauty Salon</ThemedText>
+
           <ThemedText type="subtitle" style={{ marginTop: 20 }}>
             Agende o seu horário de forma rápida e fácil!
           </ThemedText>
         </ThemedView>
 
-        <ThemedView style={[styles.stepContainer, { marginTop: 40 }]}>
-          <WrapperAgendamento name="Serviços" onClick={handleTest} />
-        </ThemedView>
+        <MyModal type="Serviços">
+          <ThemedView style={{ marginTop: 40 }}>
+            <WrapperAgendamento type="Serviços" />
+          </ThemedView>
+        </MyModal>
 
-        <ThemedView style={styles.stepContainer}>
-          <WrapperAgendamento name="Funcionário" onClick={handleTest} />
-        </ThemedView>
+        <MyModal type="Funcionário">
+          <ThemedView>
+            <PageEmployee />
+          </ThemedView>
+        </MyModal>
 
-        <ThemedView style={styles.stepContainer}>
-          <WrapperAgendamento name="Horário" onClick={handleTest} />
-        </ThemedView>
-
-        <Servicos />
+        <MyModal type="Horário">
+          <ThemedText>Modal</ThemedText>
+        </MyModal>
 
         <Collapsible title="Aqui você vai envontrar os melhores serviços.">
           <ThemedText>
@@ -95,15 +99,10 @@ const styles = StyleSheet.create({
     padding: 10,
     // fontFamily: 'poppins',
   },
-  stepContainer: {
-    gap: 8,
-    // marginBottom: 8,
-  },
   reactLogo: {
     flex: 1,
-    // height: '100%',
     width: '100%',
-    height: 310,
+    height: 410,
     zIndex: 999,
   },
 });
