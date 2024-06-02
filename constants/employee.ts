@@ -32,7 +32,7 @@ export const EMPLOYEES: Employee[] = [
   },
   {
     id: 5,
-    name: 'Nania Das Chagas',
+    name: 'Narnia Souchique',
     role: 'Sobrancelhas',
     availability: ['SEG'],
   },

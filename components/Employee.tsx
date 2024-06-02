@@ -1,34 +1,56 @@
 import React from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { DataTable } from 'react-native-paper';
 import { EMPLOYEES } from '@/constants/employee';
 import { Collapsible } from './Collapsible';
-// import { ThemedView } from './ThemedView';
 import { ThemedText } from './ThemedText';
-
-interface Employee {
-  id: number;
-  name: string;
-  role: string;
-  availability: string[];
-}
 
 export const EmployeeList: React.FC = () => {
   return (
     <Collapsible title="Funcionários">
       <DataTable>
         <DataTable.Header>
-          <DataTable.Title>Nome</DataTable.Title>
-          <DataTable.Title>Trabalho</DataTable.Title>
-          <DataTable.Title>Disponibilidade</DataTable.Title>
+          <DataTable.Title>
+            <ThemedText type="defaultSemiBold">Nome</ThemedText>
+          </DataTable.Title>
+          <DataTable.Title>
+            <ThemedText type="defaultSemiBold">Trabalho</ThemedText>
+          </DataTable.Title>
+          <DataTable.Title>
+            <ThemedText type="defaultSemiBold">Disponibilidade</ThemedText>
+          </DataTable.Title>
         </DataTable.Header>
         {EMPLOYEES.map((employee) => (
           <DataTable.Row key={employee.id}>
-            <DataTable.Cell>{employee.name}</DataTable.Cell>
-            <DataTable.Cell>{employee.role}</DataTable.Cell>
             <DataTable.Cell>
+              <ThemedText style={styles.defaultText}>
+                {employee.name}
+              </ThemedText>
+            </DataTable.Cell>
+
+            <DataTable.Cell
+              style={{
+                justifyContent: 'center',
+              }}
+            >
+              <ThemedText style={styles.defaultText}>
+                {employee.role}
+              </ThemedText>
+            </DataTable.Cell>
+            <DataTable.Cell
+              style={{
+                justifyContent: 'center',
+              }}
+            >
               {employee.availability.map((timeSlot, index) => (
-                <ThemedText key={index}>{timeSlot}</ThemedText>
+                <ThemedText
+                  style={{
+                    fontSize: 12,
+                  }}
+                  key={index}
+                >
+                  {timeSlot}
+                </ThemedText>
               ))}
             </DataTable.Cell>
           </DataTable.Row>
@@ -37,3 +59,9 @@ export const EmployeeList: React.FC = () => {
     </Collapsible>
   );
 };
+
+const styles = StyleSheet.create({
+  defaultText: {
+    fontSize: 14,
+  },
+});
