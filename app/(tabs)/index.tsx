@@ -1,70 +1,109 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
+import { Image, StyleSheet, Platform, Alert } from 'react-native';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { WrapperAgendamento } from '@/components/WrapperAgendamento';
+import { Collapsible } from '@/components/Collapsible';
+import { ExternalLink } from '@/components/ExternalLink';
+import { TabBarIcon } from '@/components/navigation/TabBarIcon';
+import { Servicos } from '@/components/Servicos';
+import { useEffect, useState } from 'react';
+import { storage } from '../util/storage';
 
+// {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
 export default function HomeScreen() {
+  const handleTest = () => Alert.alert('test');
+  const [image, setImage] = useState<string | undefined>();
+
+  const checkUser = async () => {
+    try {
+      const image = await storage.load({ key: 'image' });
+      setImage(image);
+      console.log('image image:', image);
+    } catch (e) {
+      console.log('No user data found');
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <>
+      <ParallaxScrollView
+        headerBackgroundColor={{ light: '#D0D0D0', dark: '#1D3D47' }}
+        headerImage={
+          image ? (
+            <Image source={{ uri: image }} style={styles.reactLogo} />
+          ) : (
+            <Image
+              source={require('../../assets/images/logo.png')}
+              style={styles.reactLogo}
+            />
+          )
+        }
+      >
+        <ThemedView style={styles.titleContainer}>
+          <ThemedText type="title">Beauty Salon</ThemedText>
+          <ThemedText type="subtitle" style={{ marginTop: 20 }}>
+            Agende o seu horário de forma rápida e fácil!
+          </ThemedText>
+        </ThemedView>
+
+        <ThemedView style={[styles.stepContainer, { marginTop: 40 }]}>
+          <WrapperAgendamento name="Serviços" onClick={handleTest} />
+        </ThemedView>
+
+        <ThemedView style={styles.stepContainer}>
+          <WrapperAgendamento name="Funcionário" onClick={handleTest} />
+        </ThemedView>
+
+        <ThemedView style={styles.stepContainer}>
+          <WrapperAgendamento name="Horário" onClick={handleTest} />
+        </ThemedView>
+
+        <Servicos />
+
+        <Collapsible title="Aqui você vai envontrar os melhores serviços.">
+          <ThemedText>
+            Fique a vontate para explora:{' '}
+            <ThemedText type="defaultSemiBold">Nossos produtos</ThemedText> e{' '}
+            <ThemedText type="defaultSemiBold">Nossa pagina de feed</ThemedText>
+          </ThemedText>
+          <ThemedText>
+            Caso precise de mais informações, siga-nos nas redes sociais: {'\n'}{' '}
+            {'\n'}
+            <TabBarIcon name="logo-instagram" size={18} />{' '}
+            <TabBarIcon name="logo-facebook" size={18} />{' '}
+            <TabBarIcon name="logo-linkedin" size={18} />{' '}
+          </ThemedText>
+          <ExternalLink href="https://anderson-kauer.vercel.app">
+            <ThemedText type="link">Entre em contato conosco aqui!</ThemedText>
+          </ExternalLink>
+        </Collapsible>
+      </ParallaxScrollView>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   titleContainer: {
-    flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    // borderBottomWidth: 1,
+    width: '100%',
+    padding: 10,
+    // fontFamily: 'poppins',
   },
   stepContainer: {
     gap: 8,
-    marginBottom: 8,
+    // marginBottom: 8,
   },
   reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+    flex: 1,
+    // height: '100%',
+    width: '100%',
+    height: 310,
+    zIndex: 999,
   },
 });
