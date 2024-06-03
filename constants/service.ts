@@ -1,58 +1,52 @@
-interface BeautyService {
-  id: number;
-  name: string;
-  duration: number; 
-  price: number; 
-}
+import type { BeautyService } from '@/app/@type/BeautyService';
 
 export const BEAUTY_SERVICES: BeautyService[] = [
   {
     id: 1,
-    name: "Corte de Cabelo",
+    name: 'Corte de Cabelo',
     duration: 60,
-    price: 50.0,
+    price: 49.99,
   },
   {
     id: 2,
-    name: "Manicure",
+    name: 'Manicure',
     duration: 45,
     price: 30.0,
   },
   {
     id: 3,
-    name: "Pedicure",
+    name: 'Pedicure',
     duration: 45,
-    price: 35.0,
+    price: 34.99,
   },
   {
     id: 4,
-    name: "Escova",
+    name: 'Escova',
     duration: 40,
-    price: 40.0,
+    price: 49.99,
   },
   {
     id: 5,
-    name: "Coloração",
+    name: 'Coloração',
     duration: 120,
-    price: 150.0,
+    price: 149.99,
   },
   {
     id: 6,
-    name: "Depilação",
+    name: 'Depilação',
     duration: 30,
-    price: 60.0,
+    price: 59.99,
   },
   {
     id: 7,
-    name: "Limpeza de Pele",
+    name: 'Limpeza de Pele',
     duration: 90,
-    price: 80.0,
+    price: 79.99,
   },
   {
     id: 8,
-    name: "Sobrancelha",
+    name: 'Sobrancelha',
     duration: 30,
-    price: 25.0,
+    price: 24.99,
   },
 ];
-

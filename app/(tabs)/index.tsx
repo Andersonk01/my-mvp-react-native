@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { storage } from '../util/storage';
 import { MyModal } from '@/components/MyModal';
 import { PageEmployee } from '@/components/PageEmployee';
+import { PageService } from '@/components/PageService';
 
 // {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
 export default function HomeScreen() {
@@ -54,15 +55,11 @@ export default function HomeScreen() {
         </ThemedView>
 
         <MyModal type="Serviços">
-          <ThemedView style={{ marginTop: 40 }}>
-            <WrapperAgendamento type="Serviços" />
-          </ThemedView>
+          <PageService />
         </MyModal>
 
         <MyModal type="Funcionário">
-          <ThemedView>
-            <PageEmployee />
-          </ThemedView>
+          <PageEmployee />
         </MyModal>
 
         <MyModal type="Horário">
