@@ -69,16 +69,6 @@ export default function TabTwoScreen() {
         </ThemedText>
       </ThemedView>
 
-      {/* <ThemedView
-        style={{
-          width: '100%',
-          position: 'relative',
-          padding: 8,
-          backgroundColor: 'green',
-          height: 200,
-        }}
-      ></ThemedView> */}
-
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -105,8 +95,6 @@ export default function TabTwoScreen() {
         <ScrollView
           showsVerticalScrollIndicator
           showsHorizontalScrollIndicator={false}
-          // style={styles.galeria}
-          // style={{ height: 600 }}
         >
           <FlatList
             showsVerticalScrollIndicator
