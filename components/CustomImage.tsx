@@ -1,11 +1,5 @@
 import React, { useRef } from 'react';
-import {
-  Animated,
-  DimensionValue,
-  Image,
-  StyleSheet,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import { Animated, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { CustomImageProps } from '@/app/@type/CustomImageProps';
 
 export const CustomImage: React.FC<CustomImageProps> = ({
