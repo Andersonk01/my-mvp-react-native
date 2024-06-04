@@ -1,4 +1,11 @@
-import { StyleSheet, Image } from 'react-native';
+import {
+  StyleSheet,
+  Image,
+  FlatList,
+  ImageSourcePropType,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
@@ -17,6 +24,7 @@ import galeria5 from '@/assets/images/galeria5.png';
 import galeria6 from '@/assets/images/galeria6.png';
 import galeria7 from '@/assets/images/galeria7.png';
 import galeria8 from '@/assets/images/galeria8.png';
+import { Avatar, Button, Card, Text } from 'react-native-paper';
 
 const imageMap = {
   'galeria1.png': galeria1,
@@ -29,6 +37,8 @@ const imageMap = {
   'galeria8.png': galeria8,
 };
 type ImageKey = keyof typeof imageMap;
+
+const LeftContent = (props: any) => <Avatar.Icon {...props} icon="account" />;
 
 export default function TabTwoScreen() {
   // loop para mudar as imagens do carousel
@@ -50,24 +60,83 @@ export default function TabTwoScreen() {
       headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
       headerImage={<Carousel id={currentIndex} />}
     >
-      <ThemedText type="title">Galeria</ThemedText>
+      <ThemedText type="title">Feed</ThemedText>
 
       <ThemedView style={{ backgroundColor: 'transparent' }}>
         <ThemedText>Venha conhecer nossa loja fisica!</ThemedText>
         <ThemedText>
-          Estamos localizados na Rua Tal, 4002-8922, Centro, Caxias - MA
+          Estamos localizados na Rua Tal, 4002-8922, Centro, Caxias-MA
         </ThemedText>
       </ThemedView>
 
-      <ThemedView style={styles.galeria}>
+      {/* <ThemedView
+        style={{
+          width: '100%',
+          position: 'relative',
+          padding: 8,
+          backgroundColor: 'green',
+          height: 200,
+        }}
+      ></ThemedView> */}
+
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={{
+          width: '120%',
+          position: 'relative',
+          left: -32,
+          padding: 8,
+          paddingHorizontal: 10,
+          backgroundColor: '#00000020',
+        }}
+      >
         {galeria.map((item) => (
           <CustomImage
+            myId={item.id}
             key={item.id}
-            myId={item.id.toString()}
             source={imageMap[item.source as ImageKey]}
+            style={{ width: 200, height: 200, margin: 8 }}
           />
         ))}
-      </ThemedView>
+      </ScrollView>
+
+      <SafeAreaView>
+        <ScrollView
+          showsVerticalScrollIndicator
+          showsHorizontalScrollIndicator={false}
+          // style={styles.galeria}
+          // style={{ height: 600 }}
+        >
+          <FlatList
+            showsVerticalScrollIndicator
+            data={galeria}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <Card style={{ marginVertical: 20 }}>
+                <Card.Title
+                  title="Anderson Kauer"
+                  subtitle="Esteticista"
+                  left={LeftContent}
+                />
+                <Card.Content>
+                  <Text variant="titleLarge">{item.name}</Text>
+                  <Text variant="bodyMedium">Beauty Salon</Text>
+                </Card.Content>
+                <Card.Cover
+                  source={
+                    imageMap[item.source as ImageKey] as ImageSourcePropType
+                  }
+                />
+                <Card.Actions>
+                  {/* <Button>Cancel</Button> */}
+                  <Button>Ver</Button>
+                </Card.Actions>
+              </Card>
+            )}
+          />
+        </ScrollView>
+      </SafeAreaView>
 
       <Image
         source={require('@/assets/images/vector3.png')}
