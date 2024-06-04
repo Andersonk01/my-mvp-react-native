@@ -11,10 +11,10 @@ import { storage } from '../util/storage';
 import { MyModal } from '@/components/MyModal';
 import { PageEmployee } from '@/components/PageEmployee';
 import { PageService } from '@/components/PageService';
+import { FeedCalendar } from '@/components/FeedCalendar';
 
 // {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
 export default function HomeScreen() {
-  const handleTest = () => Alert.alert('test');
   const [image, setImage] = useState<string | undefined>();
 
   const checkUser = async () => {
@@ -63,7 +63,7 @@ export default function HomeScreen() {
         </MyModal>
 
         <MyModal type="Horário">
-          <ThemedText>Modal</ThemedText>
+          <FeedCalendar />
         </MyModal>
 
         <Collapsible title="Aqui você vai envontrar os melhores serviços.">

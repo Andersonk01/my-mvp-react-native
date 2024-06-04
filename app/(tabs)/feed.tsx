@@ -1,18 +1,9 @@
-import {
-  StyleSheet,
-  Image,
-  Platform,
-  View,
-  ImageSourcePropType,
-} from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { Carousel } from '@/components/Carousel';
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { useEffect, useState } from 'react';
 import { CustomImage } from '@/components/CustomImage';
 
@@ -25,6 +16,7 @@ import galeria4 from '@/assets/images/galeria4.png';
 import galeria5 from '@/assets/images/galeria5.png';
 import galeria6 from '@/assets/images/galeria6.png';
 import galeria7 from '@/assets/images/galeria7.png';
+import galeria8 from '@/assets/images/galeria8.png';
 
 const imageMap = {
   'galeria1.png': galeria1,
@@ -34,6 +26,7 @@ const imageMap = {
   'galeria5.png': galeria5,
   'galeria6.png': galeria6,
   'galeria7.png': galeria7,
+  'galeria8.png': galeria8,
 };
 type ImageKey = keyof typeof imageMap;
 
@@ -57,15 +50,12 @@ export default function TabTwoScreen() {
       headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
       headerImage={<Carousel id={currentIndex} />}
     >
-      <ThemedText type="title">
-        Galeria
-        <TabBarIcon name="image" color="gray" />
-      </ThemedText>
+      <ThemedText type="title">Galeria</ThemedText>
 
       <ThemedView style={{ backgroundColor: 'transparent' }}>
         <ThemedText>Venha conhecer nossa loja fisica!</ThemedText>
         <ThemedText>
-          Estamos localizados na Rua Tal, 123, Centro, Caxias - MA
+          Estamos localizados na Rua Tal, 4002-8922, Centro, Caxias - MA
         </ThemedText>
       </ThemedView>
 

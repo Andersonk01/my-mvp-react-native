@@ -40,11 +40,11 @@ export const galeria: GaleriaType[] = [
     source: 'galeria7.png',
     name: 'Imagem 7',
   },
-  // {
-  //   id: '8',
-  //   source: 'galeria8.png',
-  //   name: 'Imagem 8',
-  // },
+  {
+    id: '8',
+    source: 'galeria8.png',
+    name: 'Imagem 8',
+  },
   // {
   //   id: '9',
   //   source: 'galeria9.png',

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { RadioButton } from 'react-native-paper';
-import { EMPLOYEES } from '@/constants/employee';
+import { EMPLOYEES } from '@/constants/Employee';
 
 export const PageEmployee = () => {
   const [checked, setChecked] = React.useState('');

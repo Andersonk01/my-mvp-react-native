@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { DataTable } from 'react-native-paper';
-import { EMPLOYEES } from '@/constants/employee';
+import { EMPLOYEES } from '@/constants/Employee';
 import { Collapsible } from './Collapsible';
 import { ThemedText } from './ThemedText';
 

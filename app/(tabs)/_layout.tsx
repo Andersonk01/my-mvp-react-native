@@ -32,28 +32,6 @@ export default function TabLayout() {
         screenOptions={{
           tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
           headerShown: false,
-          tabBarVisibilityAnimationConfig: {
-            show: {
-              animation: 'spring',
-              config: {
-                damping: 400,
-                stiffness: 100,
-                mass: 1,
-                delay: 0,
-                // duration: 300,
-              },
-            },
-            hide: {
-              animation: 'spring',
-              config: {
-                // duration: 300,
-                damping: 400,
-                stiffness: 100,
-                mass: 1,
-                delay: 10,
-              },
-            },
-          },
         }}
       >
         <Tabs.Screen
