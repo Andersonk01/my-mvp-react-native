@@ -40,7 +40,7 @@ type ImageKey = keyof typeof imageMap;
 
 const LeftContent = (props: any) => <Avatar.Icon {...props} icon="account" />;
 
-export default function TabTwoScreen() {
+export default function Feed() {
   // loop para mudar as imagens do carousel
   const images = [1, 2, 3];
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -69,61 +69,57 @@ export default function TabTwoScreen() {
         </ThemedText>
       </ThemedView>
 
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={{
-          width: '120%',
-          position: 'relative',
-          left: -32,
-          padding: 8,
-          paddingHorizontal: 10,
-          backgroundColor: '#00000020',
-        }}
-      >
-        {galeria.map((item) => (
-          <CustomImage
-            myId={item.id}
-            key={item.id}
-            source={imageMap[item.source as ImageKey]}
-            style={{ width: 200, height: 200, margin: 8 }}
-          />
-        ))}
-      </ScrollView>
-
-      <SafeAreaView>
-        <ScrollView
-          showsVerticalScrollIndicator
+      <SafeAreaView style={{ flex: 1 }}>
+        <FlatList
+          horizontal
           showsHorizontalScrollIndicator={false}
-        >
-          <FlatList
-            showsVerticalScrollIndicator
-            data={galeria}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <Card style={{ marginVertical: 20 }}>
-                <Card.Title
-                  title="Anderson Kauer"
-                  subtitle="Esteticista"
-                  left={LeftContent}
-                />
-                <Card.Content>
-                  <Text variant="titleLarge">{item.name}</Text>
-                  <Text variant="bodyMedium">Beauty Salon</Text>
-                </Card.Content>
-                <Card.Cover
-                  source={
-                    imageMap[item.source as ImageKey] as ImageSourcePropType
-                  }
-                />
-                <Card.Actions>
-                  {/* <Button>Cancel</Button> */}
-                  <Button>Ver</Button>
-                </Card.Actions>
-              </Card>
-            )}
-          />
-        </ScrollView>
+          style={{
+            width: '120%',
+            position: 'relative',
+            left: -32,
+            padding: 8,
+            paddingHorizontal: 10,
+            backgroundColor: '#00000020',
+          }}
+          data={galeria}
+          keyExtractor={(item) => item.source}
+          renderItem={({ item }) => (
+            <CustomImage
+              myId={item.id}
+              key={item.id}
+              source={imageMap[item.source as ImageKey]}
+              style={{ width: 200, height: 200, margin: 8 }}
+            />
+          )}
+        />
+        {/* </SafeAreaView>
+      <SafeAreaView> */}
+        <FlatList
+          data={galeria}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <Card style={{ marginVertical: 20 }} key={item.id}>
+              <Card.Title
+                title="Anderson Kauer"
+                subtitle="Esteticista"
+                left={LeftContent}
+              />
+              <Card.Content>
+                <Text variant="titleLarge">{item.name}</Text>
+                <Text variant="bodyMedium">Beauty Salon</Text>
+              </Card.Content>
+              <Card.Cover
+                source={
+                  imageMap[item.source as ImageKey] as ImageSourcePropType
+                }
+              />
+              <Card.Actions>
+                <Button>Cancel</Button>
+                <Button>Ver</Button>
+              </Card.Actions>
+            </Card>
+          )}
+        />
       </SafeAreaView>
 
       <Image

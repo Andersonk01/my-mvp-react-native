@@ -14,7 +14,7 @@ import { TouchableOpacity } from 'react-native';
 import { ThemedText } from './ThemedText';
 import ParallaxScrollView from './ParallaxScrollView';
 import { TabBarIcon } from './navigation/TabBarIcon';
-import { CompanyEntityProps } from '@/app/@type/companyEntityProps';
+import { CompanyEntityProps } from '@/app/@type/CompanyEntityProps';
 
 type TModalProps = CompanyEntityProps & {
   children: React.ReactNode;

@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import React from 'react';
 import { View, Text } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { CompanyEntityProps } from '@/app/@type/companyEntityProps';
+import { CompanyEntityProps } from '@/app/@type/CompanyEntityProps';
 
 export function WrapperAgendamento({ type = 'Serviços' }: CompanyEntityProps) {
   return (

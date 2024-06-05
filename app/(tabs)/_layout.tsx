@@ -7,17 +7,18 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import LoginScreen from '../screen/login';
 import { storage } from '../util/storage';
 
+import { User } from '../@type/User';
+
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const checkUser = async () => {
       try {
-        const user = await storage.load({ key: 'user' });
-        console.log('User data:', user);
+        const user: User = await storage.load({ key: 'user' });
         setUser(user);
-        console.log(user.name);
+        console.log(user);
       } catch (e) {
         console.log('No user data found');
       }
@@ -26,53 +27,67 @@ export default function TabLayout() {
     checkUser();
   }, []);
 
-  if (user) {
-    return (
-      <Tabs
-        screenOptions={{
-          tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-          headerShown: false,
-        }}
-      >
-        <Tabs.Screen
-          name="index"
-          options={{
-            title: 'Agendar',
-            tabBarIcon: ({ color, focused }) => (
-              <TabBarIcon
-                name={focused ? 'calendar' : 'calendar-outline'}
-                color={color}
-              />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="feed"
-          options={{
-            title: 'Feed',
-            tabBarIcon: ({ color, focused }) => (
-              <TabBarIcon
-                name={focused ? 'people-circle' : 'people-circle-outline'}
-                color={color}
-              />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="config"
-          options={{
-            title: 'Configurações',
-            tabBarIcon: ({ color, focused }) => (
-              <TabBarIcon
-                name={focused ? 'settings-sharp' : 'settings-outline'}
-                color={color}
-              />
-            ),
-          }}
-        />
-      </Tabs>
-    );
-  } else {
+  if (!user) {
     return <LoginScreen />;
   }
+
+  return (
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        headerShown: false,
+      }}
+    >
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Agendar',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? 'calendar' : 'calendar-outline'}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="feed"
+        options={{
+          title: 'Feed',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? 'people-circle' : 'people-circle-outline'}
+              color={color}
+            />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="myAgenda"
+        options={{
+          title: 'Agendamentos',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? 'calendar-clear' : 'calendar-clear-outline'}
+              color={color}
+            />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="config"
+        options={{
+          title: 'Configurações',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? 'settings-sharp' : 'settings-outline'}
+              color={color}
+            />
+          ),
+        }}
+      />
+    </Tabs>
+  );
 }

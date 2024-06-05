@@ -13,6 +13,7 @@ import { ThemedView } from '@/components/ThemedView';
 import { ThemedText } from '@/components/ThemedText';
 import { Ionicons } from '@expo/vector-icons';
 
+import { DATAUSER } from '@/mock/DATAUSER';
 import { useRouter } from 'expo-router';
 
 export default function LoginScreen() {
@@ -37,39 +38,24 @@ export default function LoginScreen() {
   }, [user]);
 
   const handleLogin = async () => {
-    const fakeName = 'Anderson';
-    const fakePassword = '123';
+    const user = DATAUSER.find((user) => user.name === name);
 
-    const IUser = {
-      name: name,
-      password: password,
-    };
-
-    if (name === fakeName && password === fakePassword) {
+    if (user && user.password === password) {
       storage.save({
         key: 'user',
-        data: IUser,
+        data: user,
         expires: null,
       });
       router.replace('/');
-
       console.log('Usuário logado com sucesso!');
       Alert.alert('Tudo ok!', `Bem-vindo, ${name}!`);
     } else {
-      // console.error('Erro ao fazer login: Credenciais inválidas');
       Alert.alert(
         `${name.length ? name : 'Login'}`,
         'Nome ou senha inválidos.'
       );
     }
   };
-
-  // const handleGoBack = () => {
-  //   navigation.goBack();
-  // };
-  // const handleSignup = () => {
-  //   navigation.navigate('SIGNUP');
-  // };
 
   return (
     <ParallaxScrollView
@@ -137,10 +123,7 @@ export default function LoginScreen() {
         </ThemedText>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        //  style={styles.loginButtonWrapper}
-        onPress={handleLogin}
-      >
+      <TouchableOpacity onPress={handleLogin}>
         <ThemedView style={styles.loginButtonWrapper}>
           <ThemedText style={styles.loginText} type="default">
             Login

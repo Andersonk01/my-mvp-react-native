@@ -7,34 +7,31 @@ import {
   Alert,
   Image,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedView } from '@/components/ThemedView';
 import { ThemedText } from '@/components/ThemedText';
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
 
 import { storage } from '../util/storage.js';
 
-import '../../assets/images/logo.png';
+// import '../../assets/images/logo.png';
 
 import { Collapsible } from '@/components/Collapsible';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { EmployeeList } from '@/components/TableEmployee';
+import { User } from '../@type/User.js';
 
 export default function ConfigScreen() {
-  const router = useRouter();
+  const { replace } = useRouter();
   const [touglePage, setTouglePage] = useState<'user' | 'empresa'>('user');
 
   const [image, setImage] = useState<string | undefined>();
   const [secureEntery, setSecureEntery] = useState(true);
 
   // const usada para comparação de senha antiga com anterior
-  const [UserControl, setUserControl] = useState<{
-    name: string;
-    password: string;
-  } | null>({} as { name: string; password: string });
+  const [UserControl, setUserControl] = useState<User | null>({} as User);
 
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -44,14 +41,9 @@ export default function ConfigScreen() {
       storage.remove({
         key: 'user',
       });
-      router.replace('../screen/login');
-
-      // await AsyncStorage.removeItem('user').then(() => {
-      //   console.log('User data removed');
-      // });
-      // Navegue de volta para a tela de login ou qualquer outra tela apropriada
+      replace('../screen/login');
     } catch (e) {
-      console.log('Failed to remove user data');
+      console.log('Falha ao remover usuário');
     }
   };
 
@@ -92,14 +84,16 @@ export default function ConfigScreen() {
   const checkUser = async () => {
     storage.load({ key: 'user' }).then((res) => {
       setName(res.name);
+
       setPassword(res.password);
 
-      setUserControl(res as { name: string; password: string });
+      setUserControl(res as User);
     });
 
     try {
-      const urlImage = await storage.load({ key: 'image' });
-      setImage(urlImage);
+      storage.load({ key: 'image' }).then((res) => {
+        setImage(res.toString());
+      });
     } catch (e) {
       console.log('No image');
     }
@@ -167,12 +161,14 @@ export default function ConfigScreen() {
               />
             )}
           </View>
-          <TouchableOpacity
-            style={styles.buttonImg}
-            onPress={handleImageUpload}
-          >
-            <Ionicons name="add-sharp" size={30} color={'#353535'} />
-          </TouchableOpacity>
+          {UserControl?.role === 'ADMIN' && (
+            <TouchableOpacity
+              style={styles.buttonImg}
+              onPress={handleImageUpload}
+            >
+              <Ionicons name="add-sharp" size={30} color={'#353535'} />
+            </TouchableOpacity>
+          )}
         </View>
       }
     >
@@ -204,25 +200,29 @@ export default function ConfigScreen() {
           </ThemedText>
         </TouchableOpacity>
 
-        {/* divisao */}
-        <ThemedText style={{ width: 20, height: '100%' }}>|</ThemedText>
-        <TouchableOpacity
-          style={{ flex: 1 }}
-          onPress={() => setTouglePage('empresa')}
-        >
-          <ThemedText
-            style={[
-              {
-                flex: 1,
-                textAlign: 'center',
-              },
-              touglePage === 'empresa' ? { color: 'green' } : null,
-            ]}
-            type="subtitle"
-          >
-            Empresa
-          </ThemedText>
-        </TouchableOpacity>
+        {UserControl?.role === 'ADMIN' && (
+          <>
+            <ThemedText style={{ width: 20, height: '100%' }}>|</ThemedText>
+
+            <TouchableOpacity
+              style={{ flex: 1 }}
+              onPress={() => setTouglePage('empresa')}
+            >
+              <ThemedText
+                style={[
+                  {
+                    flex: 1,
+                    textAlign: 'center',
+                  },
+                  touglePage === 'empresa' ? { color: 'green' } : null,
+                ]}
+                type="subtitle"
+              >
+                Empresa
+              </ThemedText>
+            </TouchableOpacity>
+          </>
+        )}
       </ThemedView>
 
       {/* usuario page - user */}
@@ -312,7 +312,7 @@ export default function ConfigScreen() {
       )}
 
       {/* empresa page */}
-      {touglePage === 'empresa' && (
+      {touglePage === 'empresa' && UserControl?.role === 'ADMIN' && (
         <>
           <ThemedView>
             <ThemedText type="subtitle">Nome da Empresa</ThemedText>
@@ -383,9 +383,11 @@ export default function ConfigScreen() {
           style={styles.sairButtonWrapperTouch}
           onPress={handleLogout}
         >
+          {/* <Link href="../screen/login"> */}
           <ThemedText style={styles.sairText} type="default">
             Sair
           </ThemedText>
+          {/* </Link> */}
         </TouchableOpacity>
       </ThemedView>
     </ParallaxScrollView>
